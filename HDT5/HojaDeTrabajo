@@ -17,7 +17,6 @@ class Proceso:
         self.instrucciones = instrucciones
         self.memoria = random.randint(1, 10)
         self.tiempo_inicio = env.now
-        env.process(self.run())
 
     def run(self):
         # Solicitar memoria
@@ -44,7 +43,8 @@ def correr_simulacion(cantidad_procesos, intervalo, ram_capacity=100, instruccio
 
     for i in range(cantidad_procesos):
         instrucciones = random.randint(1, 10)
-        env.process(Proceso(env, f"Proceso-{i}", ram, cpu, instrucciones))
+        proceso = Proceso(env, f"Proceso-{i}", ram, cpu, instrucciones)
+        env.process(proceso.run())
         yield env.timeout(random.expovariate(1.0 / intervalo))
 
     env.run()
