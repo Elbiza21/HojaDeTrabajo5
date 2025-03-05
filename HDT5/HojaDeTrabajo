@@ -45,7 +45,7 @@ def correr_simulacion(cantidad_procesos, intervalo, ram_capacity=100, instruccio
         instrucciones = random.randint(1, 10)
         proceso = Proceso(env, f"Proceso-{i}", ram, cpu, instrucciones)
         env.process(proceso.run())
-        yield env.timeout(random.expovariate(1.0 / intervalo))
+        env.timeout(random.expovariate(1.0 / intervalo))
 
     env.run()
     return statistics.mean(tiempos), statistics.stdev(tiempos)
